@@ -1,0 +1,25 @@
+{
+  "name": "https-provider",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "node": "ts-node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seokheejang/https-provider.git"
+  },
+  "author": "shjang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seokheejang/https-provider/issues"
+  },
+  "homepage": "https://github.com/seokheejang/https-provider#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "tslint": "^6.1.3",
+    "typescript": "^5.2.2"
+  }
+}

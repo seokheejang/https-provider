@@ -4,27 +4,62 @@ export const sleep = async (ms: number): Promise<void> => {
   await new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-export const retryRequest = async (func: any, funcFail: any): Promise<any> => {
+export const retryRPCRecursiveRequest = async (
+  func: any,
+  funcFail: any,
+  retriesLeft: number
+): Promise<any> => {
+  let result;
+  try {
+    /**
+     * Test code
+     */
+    // console.log(`Start retriesLeft[${retriesLeft}]`);
+    // if (retriesLeft === 3) {
+    //   result = await funcFail;
+    // } else if (retriesLeft === 2) {
+    //   result = await funcFail;
+    // } else if (retriesLeft === 1) {
+    //   result = await func;
+    // } else {
+    //   result = await funcFail;
+    // }
+    result = await func;
+    return result;
+  } catch (err) {
+    if (retriesLeft === 0) {
+      return Promise.reject(err);
+    }
+    console.log(`${retriesLeft} retries left`);
+    await sleep(1000);
+    return retryRPCRecursiveRequest(func, funcFail, retriesLeft - 1);
+  }
+};
+
+export const retryRPCBasicRequest = async (
+  func: any,
+  funcFail: any
+): Promise<any> => {
   let result: any;
-  // console.log("func", await func, await funcFail);
   for (let i = 0; i < RETRIES; i++) {
     try {
-      console.log("try1 ", i);
-      if (i === 0) {
-        result = await funcFail;
-        console.log(1, result);
-      } else if (i === 2) {
-        result = await func;
-        console.log(2, result);
-        break;
-      } else {
-        result = await funcFail;
-        console.log(3, result);
-      }
+      /**
+       * Test code
+       */
+      // console.log("try1 ", i);
+      // if (i === 0) {
+      //   result = await funcFail;
+      //   console.log(1, result);
+      // } else if (i === 2) {
+      //   result = await func;
+      //   console.log(2, result);
+      // } else {
+      //   result = await funcFail;
+      //   console.log(3, result);
+      // }
+      result = await func;
     } catch (err) {
-      console.log("dd?", err);
       if (i + 1 < RETRIES) {
-        console.log("catch ", i);
         await sleep(1000);
         continue;
       }

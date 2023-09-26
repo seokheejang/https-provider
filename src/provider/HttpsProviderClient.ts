@@ -14,8 +14,8 @@ export class HttpsProviderClient {
 
   async getLatestBlockNumber(): Promise<any> {
     // try {
-    const blockNumer = await this.provider.getBlockNumber();
-    return blockNumer;
+    const blockNumber = await this.provider.getBlockNumber();
+    return blockNumber;
     // } catch (err) {
     //   console.log("getLatestBlockNumber Error:", err);
     //   return false;

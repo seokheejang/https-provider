@@ -21,4 +21,9 @@ export class HttpsProviderClient {
     //   return false;
     // }
   }
+
+  async getNonce(address: string, blockTag?: string): Promise<any> {
+    const nonce = await this.provider.getTransactionCount(address, blockTag);
+    return nonce;
+  }
 }

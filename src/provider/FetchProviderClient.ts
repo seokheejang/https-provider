@@ -15,7 +15,6 @@ export class FetchPoviderClient {
     this.fetch = new FetchRequest(this.url);
     this.provider = new JsonRpcProvider(this.fetch);
     this.provider._getConnection().timeout = 10;
-    console.log("this.provider", this.provider._getConnection().timeout);
   }
 
   async getLatestBlockNumber(): Promise<any> {

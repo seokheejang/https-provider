@@ -1,14 +1,16 @@
 import { JsonRpcProvider } from "ethers";
 import axios from "axios";
 
-export class AxiosRpcProviderClient {
+export class JWTProviderClient {
   private provider!: JsonRpcProvider;
   private url: string;
   private timeout: number;
+  private authToken: string;
 
-  constructor(url: string, timeout: number) {
+  constructor(url: string, timeout: number, authToken: string) {
     this.url = url;
     this.timeout = timeout;
+    this.authToken = authToken;
   }
 
   async sendRPCRequest(method: string, params: any[] = []): Promise<any> {
@@ -21,7 +23,12 @@ export class AxiosRpcProviderClient {
           method,
           params,
         },
-        { timeout: 1 }
+        {
+          timeout: this.timeout,
+          headers: {
+            Authorization: `Bearer ${this.authToken}`,
+          },
+        }
       );
 
       if (response.status !== 200) {
@@ -41,7 +48,7 @@ export class AxiosRpcProviderClient {
 
   loadClient() {
     this.provider = new JsonRpcProvider(this.url);
-    this.provider._getConnection().timeout = 10;
+    // this.provider._getConnection().timeout = 10;
   }
 
   async getLatestBlockNumber(): Promise<any> {
